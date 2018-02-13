@@ -16,6 +16,12 @@ SRC_NAME	=	main.c \
 				get_next_line.c \
 				ft_free_lst.c \
 				init_drawing.c \
+				fill_params.c  \
+				trace_line.c \
+				find_in_lst.c \
+				ft_put_pixel.c \
+				key_holder.c \
+				bresenham.c \
 
 OBJ_NAME	=	$(SRC:.c=.o)
 SRC_PATH	=	.

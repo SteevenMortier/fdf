@@ -13,39 +13,39 @@
 #include "fdf.h"
 #include <stdio.h>
 
-t_params	*ft_newparam(float x, float y, char *zstr)
+t_coord	*ft_newcoords(float x, float y, char *zstr)
 {
-	t_params		*newparam;
+	t_coord		*newcoords;
 
-	if (!(newparam = (t_params *)ft_memalloc(sizeof(t_params))))
+	if (!(newcoords = (t_coord *)ft_memalloc(sizeof(t_coord))))
 		return (NULL);
-	newparam->x = (float)x;
-	newparam->y = (float)y;
-	newparam->z = (float)(ft_atoi(zstr)) ? ft_atoi(zstr) : 0;
-	newparam->next = NULL;
-	newparam->prev = NULL;
+	newcoords->x = (float)x;
+	newcoords->y = (float)y;
+	newcoords->z = (float)(ft_atoi(zstr)) ? ft_atoi(zstr) : 0;
+	newcoords->next = NULL;
+	newcoords->prev = NULL;
 	ft_memdel((void **)&zstr);
-	return (newparam);
+	return (newcoords);
 }
 
-t_params	*ft_create_lst(t_params *param, int x, int y, char *zstr)
+t_coord	*ft_create_lst(t_coord *coords, int x, int y, char *zstr)
 {
-	t_params	*temp;
+	t_coord	*temp;
 
-	if (param == NULL)
-		return (ft_newparam(x, y, zstr));
+	if (coords == NULL)
+		return (ft_newcoords(x, y, zstr));
 	else
 	{
-		temp = param;
+		temp = coords;
 		while (temp->next)
 			temp = temp->next;
-		temp->next = ft_newparam(x, y, zstr);
+		temp->next = ft_newcoords(x, y, zstr);
 		temp->next->prev = temp;
-		return (param);
+		return (coords);
 	}
 }
 
-t_params	*ft_fill_lst(t_params *param, char **map)
+t_coord	*ft_fill_lst(t_coord *coords, char **map)
 {
 	float		y;
 	float		x;
@@ -62,7 +62,7 @@ t_params	*ft_fill_lst(t_params *param, char **map)
 			save_pos = index;
 			while (ft_isdigit(map[(int)y][save_pos]) || map[(int)y][save_pos] == '-')
 				save_pos++;
-			param = ft_create_lst(param, x, y, ft_strsub(map[(int)y], index,
+			coords = ft_create_lst(coords, x, y, ft_strsub(map[(int)y], index,
 														save_pos - index));
 			x++;
 			index = save_pos;
@@ -71,50 +71,34 @@ t_params	*ft_fill_lst(t_params *param, char **map)
 		}
 		y++;
 	}
-	return (param);
+	return (coords);
 }
 
 int			main(int ac, char **av)
 {
 	char		*line;
 	char		*map[10000];
-	t_params	*param;
-	t_params	*temp;
+	t_coord		*coords;
 	int			fd;
 	int			i;
 
-	i = 0;
+	i = -1;
 	fd = open(av[1], O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
-	{
-		map[i] = line;
-		i++;
-	}
+		map[++i] = line;
 	map[i + 1] = NULL; //la map est rempli
 	close(fd);
-	param = ft_fill_lst(param, map);
-	temp = param;
-	i = 0; //y max
-	fd = 0; //x max
-	while (temp)
+	coords = ft_fill_lst(coords, map);
+	init_drawing(fill_params(coords));
+	///DEBUG coords /////////////////////
+	/*while (coords)
 	{
-		if (i <= temp->y)
-			i = temp->y;
-		if (fd <= temp->x)
-			fd = temp->x;
-		temp = temp->next;
-	}
-	init_drawing(param);
-	///DEBUG PARAM /////////////////////
-	while (param)
-	{
-		printf("%s%s%f\033[0m", (param->z >= 10 || param->z < 0) ? "\033[31m" : " ", (param->z < 10 && param->z) ? "\033[31m" : "",  param->z);
-		if (param->next && param->y != param->next->y)
+		printf("%s%s%f\033[0m", (coords->z >= 10 || coords->z < 0) ? "\033[31m" : " ", (coords->z < 10 && coords->z) ? "\033[31m" : "",  coords->z);
+		if (coords->next && coords->y != coords->next->y)
 			printf("\n");
-		param = param->next;
-	}
-	///FIN DEBUG PARAM ////////////////////
-	//ft_free_lst(param); //0 leaks oklm
-	//SWAAAAAAG => make re && ./fdf test_maps/42.fdf
+		coords = coords->next;
+	}*/
+	///FIN DEBUG coords ////////////////////
+	//ft_free_lst(coords); //0 leaks oklm
 	return (0);
 }

@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_lst.c                                      :+:      :+:    :+:   */
+/*   put_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/25 04:37:41 by smortier          #+#    #+#             */
-/*   Updated: 2018/01/25 04:37:49 by smortier         ###   ########.fr       */
+/*   Created: 2018/02/12 22:33:32 by smortier          #+#    #+#             */
+/*   Updated: 2018/02/12 22:33:34 by smortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		ft_free_lst(t_coord *coords)
+void		put_pixel(t_coord *coord, void *mlx_ptr, void *win_ptr)
 {
-	t_coord		*temp;
-
-	//fait gaffe a ce que la lst soit bien au dbut
-	if (coords)
+	while (coord)
 	{
-		while (coords)
-		{
-			temp = coords;
-			coords = coords->next;
-			ft_memdel((void **)&temp);
-		}
+		if (coord->z)
+			mlx_pixel_put(mlx_ptr, win_ptr, coord->x * 30 + 400, coord->y * 30 + 200, 0xFF00FF);
+		else
+			mlx_pixel_put(mlx_ptr, win_ptr, coord->x * 30 + 400, coord->y * 30 + 200, 0xFFFFFF);
+		coord = coord->next;
 	}
 }

@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_lst.c                                      :+:      :+:    :+:   */
+/*   find_in_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/25 04:37:41 by smortier          #+#    #+#             */
-/*   Updated: 2018/01/25 04:37:49 by smortier         ###   ########.fr       */
+/*   Created: 2018/02/12 21:53:20 by smortier          #+#    #+#             */
+/*   Updated: 2018/02/12 21:53:26 by smortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		ft_free_lst(t_coord *coords)
+t_coord		*finded_down(t_coord *coord, int x, int y)
 {
-	t_coord		*temp;
-
-	//fait gaffe a ce que la lst soit bien au dbut
-	if (coords)
+	while (coord)
 	{
-		while (coords)
-		{
-			temp = coords;
-			coords = coords->next;
-			ft_memdel((void **)&temp);
-		}
+		if (coord->y == y + 1 && coord->x == x)
+			return (coord);
+		coord = coord->next;
 	}
+	return (NULL);
+}
+
+t_coord	*finded_diag(t_coord *coord, int x, int y)
+{
+	while (coord)
+	{
+		if (coord->y == y + 1 && coord->x == x + 1)
+			return (coord);
+		coord = coord->next;
+	}
+	return (NULL);
 }
