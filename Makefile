@@ -22,6 +22,8 @@ SRC_NAME	=	main.c \
 				ft_put_pixel.c \
 				key_holder.c \
 				bresenham.c \
+				ft_draw_image.c \
+				reset_tab.c \
 
 OBJ_NAME	=	$(SRC:.c=.o)
 SRC_PATH	=	.

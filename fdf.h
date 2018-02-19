@@ -16,13 +16,15 @@
 
 # include "libft/libft.h"
 # include "get_next_line.h"
-# include <mlx.h>
+# include "minilibx/mlx.h"
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
 
 # define ABS(Value) ((Value) < 0 ? -(Value) : (Value))
 
+# define WIDTH 800
+# define HIGHT 600
 # define ESC 53
 # define ARROW_UP 126
 # define ARROW_DOWN 125
@@ -30,6 +32,23 @@
 # define ARROW_RIGHT 124
 # define PAGE_UP 116
 # define PAGE_DOWN 121
+
+typedef struct			s_bres
+{
+	int x0;
+	int y0;
+	int x1;
+	int y1;
+	int ex;
+	int ey;
+	int dx;
+	int dy;
+	int dex;
+	int dey;
+	int i;
+	int Xincr;
+	int Yincr;
+}						t_bres;
 
 typedef struct			s_img
 {
@@ -55,6 +74,7 @@ typedef struct			s_params
 {
 	t_coord				*coords;
 	t_img				img;
+	int					**bres_tab;
 	int					max_hori_win;
 	int					max_vert_win;
 	int					lag_x;
@@ -86,6 +106,10 @@ int			key_holder(int key, t_params *param);
 
 void		prt_form(t_params *param);
 
-void	bresenham_finder(int x0,int y0,int x1,int y1, t_params *param);
+void	bresenham_finder(t_coord *coords, t_coord *coords_nxt, t_params *param);
+
+void	ft_draw_image(t_params *param);
+
+void	reset_tab(t_params *param);
 
 #endif

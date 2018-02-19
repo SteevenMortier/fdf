@@ -30,10 +30,12 @@ int			key_holder_bis(int key, t_params *param)
 			coords = coords->next;
 		}
 	}
-	if (key == 69)
+	if (key == 24)
 		param->zoom += 1;
-	if (key == 78)
+	if (key == 27)
 		param->zoom -= 1;
+	mlx_destroy_image(param->mlx_ptr, param->img.img_ptr);
+	reset_tab(param);
 	mlx_clear_window(param->mlx_ptr, param->win_ptr);
 	prt_form(param);
 	return (0);

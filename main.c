@@ -90,15 +90,6 @@ int			main(int ac, char **av)
 	close(fd);
 	coords = ft_fill_lst(coords, map);
 	init_drawing(fill_params(coords));
-	///DEBUG coords /////////////////////
-	/*while (coords)
-	{
-		printf("%s%s%f\033[0m", (coords->z >= 10 || coords->z < 0) ? "\033[31m" : " ", (coords->z < 10 && coords->z) ? "\033[31m" : "",  coords->z);
-		if (coords->next && coords->y != coords->next->y)
-			printf("\n");
-		coords = coords->next;
-	}*/
-	///FIN DEBUG coords ////////////////////
 	//ft_free_lst(coords); //0 leaks oklm
 	return (0);
 }
