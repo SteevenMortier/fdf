@@ -12,9 +12,6 @@
 
 #include "fdf.h"
 
-
-//regarder la video : https://youtu.be/nQbnYl7xgb8
-
 t_bres	bresenham_init(t_coord *coords, t_coord *coords_nxt, t_params *param)
 {
 	t_bres bresen;
@@ -51,7 +48,7 @@ void	bresenham_finder(t_coord *coords, t_coord *coords_nxt, t_params *param)
 		while (bresen.i <= bresen.dex)
 		{
 			if (bresen.x0 < WIDTH && bresen.y0 < HIGHT && bresen.x0 > 0 && bresen.y0 > 0)
-				param->bres_tab[bresen.x0][bresen.y0] = 0xFFFFFF;
+					param->bres_tab[bresen.x0][bresen.y0] = color(coords->z);
 			bresen.i++;
 			bresen.x0 += bresen.Xincr;
 			bresen.ex -= bresen.dy;
@@ -67,7 +64,7 @@ void	bresenham_finder(t_coord *coords, t_coord *coords_nxt, t_params *param)
 		while (bresen.i <= bresen.dey)
 		{
 			if (bresen.x0 < WIDTH && bresen.y0 < HIGHT && bresen.x0 > 0 && bresen.y0 > 0)
-				param->bres_tab[bresen.x0][bresen.y0] = 0xFFFFFF;
+				param->bres_tab[bresen.x0][bresen.y0] = color(coords->z);
 			bresen.i++;
 			bresen.y0 += bresen.Yincr;
 			bresen.ey -= bresen.dx;

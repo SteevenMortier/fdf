@@ -12,22 +12,6 @@
 
 #include "fdf.h"
 
-void		calibrate(t_params *param, int caliber)
-{
-	t_coord		*coord;
-
-	coord = param->coords;
-	while (coord)
-	{
-		if (caliber + param->max_hori_win / 3 < param->max_hori_win)
-		{
-			coord->prt_x += caliber + param->max_hori_win / 3;
-			coord->prt_y += param->max_vert_win / 3;
-		}
-		coord = coord->next;
-	}
-}
-
 void		isometrique_proj(t_params *param)
 {
 	t_coord		*coord;
@@ -38,26 +22,11 @@ void		isometrique_proj(t_params *param)
 	while (coord)
 	{
 		coord->prt_x = (sqrt(2) / 2) * ((float)coord->x - (float)coord->y);
-		coord->prt_y = (float)((sqrt(2 / 3) * coord->z) +
+		coord->prt_y = (float)((sqrt(2 / 3) * (float)coord->z) +
 				(float)((1 / sqrt(6)) *
 				(float)(coord->x + coord->y)));
-		coord->prt_y -= (float)coord->z / 20;
+		coord->prt_y -= (float)coord->z / 2;
 		minx = (coord->prt_x <= minx) ? coord->prt_x : minx;
-		coord = coord->next;
-	}
-	if (minx < 0) //mars marche plus a cause de ca
-		calibrate(param, minx * -1);
-}
-
-void		rotatation(t_params *param, int angle)
-{
-	t_coord		*coord;
-
-	coord = param->coords;
-	while (coord)
-	{
-		coord->prt_x = (coord->x * cos(angle)) - (coord->y * sin(angle));
-		coord->prt_y = (coord->x * sin(angle)) + (coord->y * cos(angle));
 		coord = coord->next;
 	}
 }
@@ -74,7 +43,7 @@ void		prt_form(t_params *param)
 	{
 		down = finded_down(coord, coord->x, coord->y);
 		diag = finded_diag(coord, coord->x, coord->y);
-		if (coord->next && coord->x != param->max_hori_win)
+		if (coord->next && coord->next->x)
 			bresenham_finder(coord, coord->next, param);
 		if (down)
 			bresenham_finder(coord, down, param);
@@ -91,6 +60,7 @@ void		init_drawing(t_params *param)
 	int			index;
 
 	index  = -1;
+	param->init = 1;
 	coord = param->coords;
 	param->mlx_ptr = mlx_init();
 	param->win_ptr = mlx_new_window(param->mlx_ptr,

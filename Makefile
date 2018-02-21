@@ -24,6 +24,7 @@ SRC_NAME	=	main.c \
 				bresenham.c \
 				ft_draw_image.c \
 				reset_tab.c \
+				color.c \
 
 OBJ_NAME	=	$(SRC:.c=.o)
 SRC_PATH	=	.
@@ -64,6 +65,7 @@ all: $(NAME)
 $(NAME): $(OBJ) MLX
 	@$(MAKE) -s -C libft
 	@$(CC) $(LDFLAGS) $(FLAGS1) $(LDLIBS) $(OBJ) -o $(NAME) -L./minilibx -lmlx
+	@printf "\n"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_PATH)

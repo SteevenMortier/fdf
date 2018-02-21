@@ -16,7 +16,7 @@ void	ft_draw_image(t_params *param)
 		while (++x_img < WIDTH)
 		{
 			if (param->bres_tab[x_img][y_img])
-				param->img.data[y_img * WIDTH + x_img] = 0xFFFFFF;
+				param->img.data[y_img * WIDTH + x_img] = param->bres_tab[x_img][y_img];
 			else
 				param->img.data[y_img * WIDTH + x_img] = 0;
 		}

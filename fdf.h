@@ -74,6 +74,7 @@ typedef struct			s_params
 {
 	t_coord				*coords;
 	t_img				img;
+	int					init;
 	int					**bres_tab;
 	int					max_hori_win;
 	int					max_vert_win;
@@ -111,5 +112,7 @@ void	bresenham_finder(t_coord *coords, t_coord *coords_nxt, t_params *param);
 void	ft_draw_image(t_params *param);
 
 void	reset_tab(t_params *param);
+
+int		color(int alt);
 
 #endif
