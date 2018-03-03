@@ -23,7 +23,7 @@ t_coord		*finded_down(t_coord *coord, int x, int y)
 	return (NULL);
 }
 
-t_coord	*finded_diag(t_coord *coord, int x, int y)
+t_coord		*finded_diag(t_coord *coord, int x, int y)
 {
 	while (coord)
 	{

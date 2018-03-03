@@ -46,8 +46,8 @@ typedef struct			s_bres
 	int dex;
 	int dey;
 	int i;
-	int Xincr;
-	int Yincr;
+	int xincr;
+	int yincr;
 }						t_bres;
 
 typedef struct			s_img
@@ -89,30 +89,34 @@ typedef struct			s_params
 
 t_params				*fill_params(t_coord *coords);
 
-void					ft_free_lst(t_coord *coords);
-
 void					init_drawing(t_params *param);
 
-void		line_and_diag(t_params *param, t_coord *coords, t_coord *coord_nxt);
+void					line_and_diag(t_params *param, t_coord *coords,
+									t_coord *coord_nxt);
 
-void		line_vert(t_params *param, t_coord *coords, t_coord *coord_nxt);
+void					line_vert(t_params *param, t_coord *coords,
+								t_coord *coord_nxt);
 
-t_coord		*finded_down(t_coord *coord, int x, int y);
+t_coord					*finded_down(t_coord *coord, int x, int y);
 
-t_coord		*finded_diag(t_coord *coord, int x, int y);
+t_coord					*finded_diag(t_coord *coord, int x, int y);
 
-void		ft_put_pixel(t_coord *coord, void *mlx_ptr, void *win_ptr);
+void					ft_put_pixel(t_coord *coord,
+									void *mlx_ptr, void *win_ptr);
 
-int			key_holder(int key, t_params *param);
+void					where_m_i(int index, int end);
 
-void		prt_form(t_params *param);
+int						key_holder(int key, t_params *param);
 
-void	bresenham_finder(t_coord *coords, t_coord *coords_nxt, t_params *param);
+void					prt_form(t_params *param);
 
-void	ft_draw_image(t_params *param);
+void					bresenham_finder(t_coord *coords,
+										t_coord *coords_nxt, t_params *param);
 
-void	reset_tab(t_params *param);
+void					ft_draw_image(t_params *param);
 
-int		color(int alt);
+void					reset_tab(t_params *param);
+
+int						color(int alt);
 
 #endif

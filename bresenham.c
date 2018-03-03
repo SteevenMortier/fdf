@@ -27,10 +27,30 @@ t_bres	bresenham_init(t_coord *coords, t_coord *coords_nxt, t_params *param)
 	bresen.dex = bresen.ex;
 	bresen.dey = bresen.ey;
 	bresen.i = 0;
-	bresen.Xincr = 1;
-	bresen.Yincr = 1;
+	bresen.xincr = 1;
+	bresen.yincr = 1;
+	return (bresen);
+}
 
-	return(bresen);
+void	norm_helper(t_params *param, t_bres bresen, t_coord *coords)
+{
+	if (bresen.dex < bresen.dey)
+	{
+		while (bresen.i <= bresen.dey)
+		{
+			if (bresen.x0 < WIDTH && bresen.y0 < HIGHT && bresen.x0 > 0 &&
+				bresen.y0 > 0)
+				param->bres_tab[bresen.x0][bresen.y0] = color(coords->z);
+			bresen.i++;
+			bresen.y0 += bresen.yincr;
+			bresen.ey -= bresen.dx;
+			if (bresen.ey < 0)
+			{
+				bresen.x0 += bresen.xincr;
+				bresen.ey += bresen.dy;
+			}
+		}
+	}
 }
 
 void	bresenham_finder(t_coord *coords, t_coord *coords_nxt, t_params *param)
@@ -38,41 +58,26 @@ void	bresenham_finder(t_coord *coords, t_coord *coords_nxt, t_params *param)
 	t_bres		bresen;
 
 	bresen = bresenham_init(coords, coords_nxt, param);
-
-	if (bresen.x0 > bresen.x1)
-		bresen.Xincr = -1;
-	if (bresen.y0 > bresen.y1)
-		bresen.Yincr = -1;
+	bresen.xincr = (bresen.x0 > bresen.x1) ? -1 : bresen.xincr;
+	bresen.yincr = (bresen.y0 > bresen.y1) ? -1 : bresen.yincr;
 	if (bresen.dex >= bresen.dey)
 	{
 		while (bresen.i <= bresen.dex)
 		{
-			if (bresen.x0 < WIDTH && bresen.y0 < HIGHT && bresen.x0 > 0 && bresen.y0 > 0)
-					param->bres_tab[bresen.x0][bresen.y0] = color(coords->z);
+			if (bresen.x0 < WIDTH && bresen.y0 < HIGHT &&
+					bresen.x0 > 0 && bresen.y0 > 0)
+			{
+				param->bres_tab[bresen.x0][bresen.y0] = color(coords->z);
+			}
 			bresen.i++;
-			bresen.x0 += bresen.Xincr;
+			bresen.x0 += bresen.xincr;
 			bresen.ex -= bresen.dy;
 			if (bresen.ex < 0)
 			{
-				bresen.y0 += bresen.Yincr;
+				bresen.y0 += bresen.yincr;
 				bresen.ex += bresen.dx;
 			}
 		}
 	}
-	if (bresen.dex < bresen.dey)
-	{
-		while (bresen.i <= bresen.dey)
-		{
-			if (bresen.x0 < WIDTH && bresen.y0 < HIGHT && bresen.x0 > 0 && bresen.y0 > 0)
-				param->bres_tab[bresen.x0][bresen.y0] = color(coords->z);
-			bresen.i++;
-			bresen.y0 += bresen.Yincr;
-			bresen.ey -= bresen.dx;
-			if (bresen.ey < 0)
-			{
-				bresen.x0 += bresen.Xincr;
-				bresen.ey += bresen.dy;
-			}
-		}
-	}
+	norm_helper(param, bresen, coords);
 }

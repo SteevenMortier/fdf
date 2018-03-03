@@ -24,10 +24,8 @@ t_params	*fill_params(t_coord *coords)
 	max_y = 0;
 	while (temp)
 	{
-		if (temp->x >= max_x)
-			max_x = temp->x;
-		if (temp->y >= max_y)
-			max_y = temp->y;
+		max_x = (temp->x >= max_x) ? temp->x : max_x;
+		max_y = (temp->y >= max_y) ? temp->y : max_y;
 		temp = temp->next;
 	}
 	if (!(newparam = (t_params *)ft_memalloc(sizeof(t_params))))

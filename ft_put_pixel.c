@@ -17,9 +17,11 @@ void		put_pixel(t_coord *coord, void *mlx_ptr, void *win_ptr)
 	while (coord)
 	{
 		if (coord->z)
-			mlx_pixel_put(mlx_ptr, win_ptr, coord->x * 30 + 400, coord->y * 30 + 200, 0xFF00FF);
+			mlx_pixel_put(mlx_ptr, win_ptr, coord->x * 30 + 400, coord->y * 30
+															+ 200, 0xFF00FF);
 		else
-			mlx_pixel_put(mlx_ptr, win_ptr, coord->x * 30 + 400, coord->y * 30 + 200, 0xFFFFFF);
+			mlx_pixel_put(mlx_ptr, win_ptr, coord->x * 30 + 400,
+						coord->y * 30 + 200, 0xFFFFFF);
 		coord = coord->next;
 	}
 }

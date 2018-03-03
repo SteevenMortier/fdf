@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_lst.c                                      :+:      :+:    :+:   */
+/*   where_m_i.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/25 04:37:41 by smortier          #+#    #+#             */
-/*   Updated: 2018/01/25 04:37:49 by smortier         ###   ########.fr       */
+/*   Created: 2018/03/03 11:31:27 by smortier          #+#    #+#             */
+/*   Updated: 2018/03/03 11:31:29 by smortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		ft_free_lst(t_coord *coords)
+void		where_m_i(int index, int end)
 {
-	t_coord		*temp;
-
-	//fait gaffe a ce que la lst soit bien au dbut
-	if (coords)
-	{
-		while (coords)
-		{
-			temp = coords;
-			coords = coords->next;
-			ft_memdel((void **)&temp);
-		}
-	}
+	ft_putstr("Step \e[42m[");
+	ft_putnbr(index);
+	ft_putstr("]\e[0m / ");
+	ft_putnbr(end);
+	ft_putstr(" \n");
 }

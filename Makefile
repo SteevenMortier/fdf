@@ -14,10 +14,8 @@ NAME		=	fdf
 
 SRC_NAME	=	main.c \
 				get_next_line.c \
-				ft_free_lst.c \
 				init_drawing.c \
 				fill_params.c  \
-				trace_line.c \
 				find_in_lst.c \
 				ft_put_pixel.c \
 				key_holder.c \
@@ -25,6 +23,7 @@ SRC_NAME	=	main.c \
 				ft_draw_image.c \
 				reset_tab.c \
 				color.c \
+				where_m_i.c \
 
 OBJ_NAME	=	$(SRC:.c=.o)
 SRC_PATH	=	.

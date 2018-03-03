@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smortier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/03 11:05:24 by smortier          #+#    #+#             */
+/*   Updated: 2018/03/03 11:05:27 by smortier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int		color(int alt)
@@ -11,7 +23,7 @@ int		color(int alt)
 		else if (alt <= 9)
 			return (0xc89121);
 		else if (alt <= 12)
-			return(0xa6741e);
+			return (0xa6741e);
 		else if (alt <= 15)
 			return (0x969f9e);
 		else if (alt <= 18)
@@ -23,13 +35,3 @@ int		color(int alt)
 		return (0x0000FF);
 	return (0x00FF00);
 }
-
-/*
-	vert clair (#45d33a)
-	jaune (0xdcd700)
-	brun clair (0xc89121)
-	marron foncé (0xa6741e)
-	gris (0x969f9e)
-	bleu pâle (0xc9e7df)
-	blanc (0xffffff)
- */

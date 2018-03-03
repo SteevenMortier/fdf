@@ -14,7 +14,7 @@
 
 void		isometrique_proj(t_params *param)
 {
-	t_coord		*coord;
+	t_coord			*coord;
 	float			minx;
 
 	coord = param->coords;
@@ -59,7 +59,7 @@ void		init_drawing(t_params *param)
 	t_coord		*coord;
 	int			index;
 
-	index  = -1;
+	index = -1;
 	param->init = 1;
 	coord = param->coords;
 	param->mlx_ptr = mlx_init();

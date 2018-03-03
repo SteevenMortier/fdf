@@ -13,7 +13,7 @@
 #include "fdf.h"
 #include <stdio.h>
 
-t_coord	*ft_newcoords(float x, float y, char *zstr)
+t_coord		*ft_newcoords(float x, float y, char *zstr)
 {
 	t_coord		*newcoords;
 
@@ -34,7 +34,7 @@ t_coord	*ft_newcoords(float x, float y, char *zstr)
 	return (newcoords);
 }
 
-t_coord	*ft_create_lst(t_coord *coords, int x, int y, char *zstr)
+t_coord		*ft_create_lst(t_coord *coords, int x, int y, char *zstr)
 {
 	t_coord	*temp;
 
@@ -51,13 +51,36 @@ t_coord	*ft_create_lst(t_coord *coords, int x, int y, char *zstr)
 	}
 }
 
-t_coord	*ft_fill_lst(t_coord *coords, char **map, int endofthis)
+t_coord		*norm(t_coord *coords, char **map, int y)
+{
+	int		x;
+	int		save_pos;
+	int		index;
+
+	index = 0;
+	x = 0;
+	while (map[(int)y][index])
+	{
+		save_pos = index;
+		while (ft_isalnum(map[(int)y][save_pos]))
+			save_pos++;
+		coords = ft_create_lst(coords, x, y, ft_strsub(map[(int)y], index,
+													save_pos - index));
+		x++;
+		index = save_pos;
+		while (map[(int)y][index] == ' ' || map[(int)y][index] == ',')
+			index++;
+	}
+	return (coords);
+}
+
+t_coord		*ft_fill_lst(t_coord *coords, char **map, int endofthis)
 {
 	float		y;
 	float		x;
-	int		index;
-	int		save_pos;
-	int		counter;
+	int			index;
+	int			save_pos;
+	int			counter;
 
 	y = 0;
 	counter = 0;
@@ -65,25 +88,10 @@ t_coord	*ft_fill_lst(t_coord *coords, char **map, int endofthis)
 	{
 		index = 0;
 		x = 0;
-		while (map[(int)y][index])
-		{
-			save_pos = index;
-			while (ft_isalnum(map[(int)y][save_pos]) || map[(int)y][save_pos] == '-')
-				save_pos++;
-			coords = ft_create_lst(coords, x, y, ft_strsub(map[(int)y], index,
-														save_pos - index));
-			x++;
-			index = save_pos;
-			while (map[(int)y][index] == ' ' || map[(int)y][index] == ',')
-				index++;
-		}
+		coords = norm(coords, map, y);
 		y++;
 		counter++;
-		ft_putstr("Step \e[42m[");
-		ft_putnbr(counter);
-		ft_putstr("]\e[0m / ");
-		ft_putnbr(endofthis);
-		ft_putstr(" \n");
+		where_m_i(counter, endofthis);
 	}
 	return (coords);
 }
@@ -93,7 +101,6 @@ int			main(int ac, char **av)
 	char		*line;
 	char		*map[10000];
 	t_coord		*coords;
-	int 		howmany;
 	int			fd;
 	int			i;
 
@@ -103,22 +110,17 @@ int			main(int ac, char **av)
 		exit(0);
 	}
 	i = -1;
-	howmany = 0;
 	fd = open(av[1], O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
-	{
 		map[++i] = line;
-		howmany += 1;
-	}
-	if (!howmany)
+	if (!i)
 	{
 		ft_putendl("File is not correct, Please retry with a good one");
 		exit(1);
 	}
-	map[i + 1] = NULL; //la map est rempli
+	map[i + 1] = NULL;
 	close(fd);
-	coords = ft_fill_lst(coords, map, howmany);
+	coords = ft_fill_lst(coords, map, i + 1);
 	init_drawing(fill_params(coords));
-	//ft_free_lst(coords); //0 leaks oklm
 	return (0);
 }
