@@ -6,7 +6,7 @@
 /*   By: smortier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 23:20:52 by smortier          #+#    #+#             */
-/*   Updated: 2018/01/24 23:20:54 by smortier         ###   ########.fr       */
+/*   Updated: 2018/03/11 11:05:14 by smortier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_coord		*ft_fill_lst(t_coord *coords, char **map, int endofthis)
 	float		y;
 	float		x;
 	int			index;
-	int			save_pos;
 	int			counter;
 
 	y = 0;
@@ -104,6 +103,7 @@ int			main(int ac, char **av)
 	int			fd;
 	int			i;
 
+	coords = NULL;
 	if (ac != 2)
 	{
 		ft_putendl("usage : ./fdf file");
@@ -122,5 +122,4 @@ int			main(int ac, char **av)
 	close(fd);
 	coords = ft_fill_lst(coords, map, i + 1);
 	init_drawing(fill_params(coords));
-	return (0);
 }
